@@ -15,24 +15,26 @@ class CreateCvsTable extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title', 200);
+            $table->string('name', 100);
             $table->date('birthday');
-            $table->string('position');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('facebook')->nullable();
-            $table->string('skype')->nullable();
-            $table->string('chatwork')->nullable();
+            $table->string('position', 100);
+            $table->string('phone', 100);
+            $table->string('email', 100);
+            $table->string('facebook', 200)->nullable();
+            $table->string('skype', 200)->nullable();
+            $table->string('chatwork', 200)->nullable();
             $table->text('address')->nullable();
             $table->longText('summary')->nullable();
-            $table->string('big_image')->nullable();
-            $table->string('small_image')->nullable();
+            $table->string('big_image', 250)->nullable();
+            $table->string('small_image', 250)->nullable();
             $table->longText('professional_skill_desc')->nullable();
             $table->longText('presonal_skill_desc')->nullable();
             $table->longText('work_exp_desc')->nullable();
             $table->longText('education_desc')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

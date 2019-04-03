@@ -23,7 +23,6 @@ class CreateCvSkillTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

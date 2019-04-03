@@ -17,8 +17,8 @@ class CreateHistoriesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('start_year');
             $table->integer('end_year');
-            $table->string('name');
-            $table->string('position');
+            $table->string('name', 100);
+            $table->string('position', 100);
             $table->text('content')->nullable();
             $table->tinyInteger('type');
             $table->unsignedBigInteger('cv_id');
