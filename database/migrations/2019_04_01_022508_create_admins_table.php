@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('phone', 50);
             $table->string('avatar', 200)->nullable();
             $table->tinyInteger('type');
+            $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
         });
