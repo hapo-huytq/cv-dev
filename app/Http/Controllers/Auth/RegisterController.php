@@ -43,7 +43,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -52,21 +52,33 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', '', 'digits_between:10,12'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
+        $request = request();
+        // Upload image
+        $userAvatar = '';
+        if ($request->hasFile('avatar')) {
+            $fileExtension = '.' . $request->avatar->extension();
+            $imageName = 'img' . uniqid() . $fileExtension;
+            $request->file('avatar')->storeAs('public/user/', $imageName);
+            $userAvatar = $imageName;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'avatar' => $userAvatar,
         ]);
     }
 }
